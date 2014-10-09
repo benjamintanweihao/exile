@@ -5,6 +5,8 @@ defmodule Exile.Mixfile do
     [app: :exile,
      version: "0.0.1",
      elixir: "~> 1.0.0",
+     escript: 
+       [main_module: Exile.CLI],
      deps: deps]
   end
 
