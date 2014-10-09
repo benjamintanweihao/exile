@@ -1,4 +1,4 @@
-defmodule ExileTest do
+defmodule ExileBotTest do
   use ExUnit.Case
   alias Exile.Bot
 
@@ -44,7 +44,7 @@ defmodule ExileTest do
 
   @tag timeout: 60_000
   test "connecting to an IRC server" do
-    {:ok, pid} = Exile.Bot.start_link(@host, @port, @chan)
+    {:ok, pid} = Bot.start_link(@host, @port, @chan)
     %{host: _host, port: _port, chan: _chan, nick: _nick, sock: _sock} = 
     Bot.join_channel(pid)
     Bot.listen(pid)

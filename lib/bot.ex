@@ -1,19 +1,14 @@
 defmodule Exile.Bot do
   use GenServer
 
-  @nick    "exile-bot"
   @timeout 10_000
 
-  def start_link(host, port, chan, nick \\ @nick) do
-    GenServer.start_link(__MODULE__, %{host: host, port: port, chan: chan, nick: nick, sock: nil}, timeout: @timeout)
+  def start_link(state) do
+    GenServer.start_link(__MODULE__, state)
   end
 
-  def join_channel(pid) do
-    GenServer.call(pid, :join_channel)
-  end
-
-  def listen(pid) do
-    GenServer.cast(pid, :listen)
+  def init(state) do
+    {:ok, state, 0}
   end
 
   def parse_message(message) when is_binary(message) do
@@ -37,23 +32,18 @@ defmodule Exile.Bot do
     who |> String.split("!") |> hd 
   end
 
-  def handle_call(:join_channel, _from, state) do
+  def handle_info(_, state) do
+    state |> do_join_channel |> do_listen
+    { :noreply, state, :infinity }
+  end
+
+  defp do_join_channel(state) do
+    IO.puts "joining ..."
     {:ok, sock} = Socket.TCP.connect(state.host, state.port, packet: :line)
     sock |> Socket.Stream.send!("NICK #{state.nick}\r\n")
     sock |> Socket.Stream.send!("USER #{state.nick} #{state.host} #{state.nick} #{state.nick}\r\n")
     sock |> Socket.Stream.send!("JOIN #{state.chan}\r\n")
-
-    state = %{state | sock: sock}
-    {:reply, state, state}
-  end
-
-  def handle_cast(:listen, state) do
-    {:noreply, state, 0}
-  end
-
-  def handle_info(:timeout, state) do
-    do_listen(state)
-    { :noreply, state }
+    Map.put(state, :sock, sock)
   end
 
   defp do_listen(state) do
@@ -61,12 +51,13 @@ defmodule Exile.Bot do
       data when is_binary(data)->
         case parse_message(data) do
           message -> IO.puts message
-          nil -> :ok
         end
+        do_listen(state)
       nil ->
         :ok
     end
-    do_listen(state)
   end
+
+
 
 end
