@@ -26,5 +26,5 @@ Run this command:
 - [ ] Writing out to a file
 - [ ] Listing all the bots
 - [ ] Stopping bots
-- [ ] `start_link` takes in a map
+- [X] `start_link` takes in a map
 
