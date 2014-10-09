@@ -8,13 +8,8 @@ I am writing this because I'm too damned lazy to log into IRC, have an open wind
 Run this command:
 
 ```
-% exile -h <host> -p <port> -c <chan> -n <nick>
-```
-
-### Example
-
-```
-./exile -h irc.freenode.net -p 6667 -c #elixir-lang -n exile-bot
+% iex -S mix
+iex> Exile.Bot.run("irc.freenode.net", 6667, "#elixir-lang", "exile-bot")
 ```
 
 ## TODO
@@ -22,7 +17,6 @@ Run this command:
 - [X] Bot working with one server
 - [ ] Supervised bot
 - [ ] Multiple bots working
-- [X] Option parsing
 - [ ] Writing out to a file
 - [ ] Listing all the bots
 - [ ] Stopping bots
