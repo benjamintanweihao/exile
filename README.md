@@ -9,16 +9,16 @@ Run this command:
 
 ```
 % iex -S mix
-iex> Exile.Bot.run("irc.freenode.net", 6667, "#elixir-lang", "exile-bot")
+> Exile.log("irc.freenode.net", 6667, "elixir-lang")
 ```
 
 ## TODO
 
 - [X] Bot working with one server
-- [ ] Supervised bot
-- [ ] Multiple bots working
+- [X] `start_link` takes in a map
+- [X] Supervised bot
+- [X] Multiple bots working
 - [ ] Writing out to a file
 - [ ] Listing all the bots
 - [ ] Stopping bots
-- [X] `start_link` takes in a map
 
