@@ -3,12 +3,17 @@ defmodule Exile.Bot do
 
   @timeout 10_000
 
+  def run(host, port, chan, nick \\ "exile-bot") do
+    GenServer.start_link(__MODULE__, %{host: host, port: port, chan: chan, nick: nick, sock: nil})
+  end
+
   def start_link(state) do
     GenServer.start_link(__MODULE__, state)
   end
 
   def init(state) do
-    {:ok, state, 0}
+    {:ok, sock} = Socket.TCP.connect(state.host, state.port, packet: :line)
+    {:ok, %{state | sock: sock}, 0}
   end
 
   def parse_message(message) when is_binary(message) do
@@ -38,12 +43,10 @@ defmodule Exile.Bot do
   end
 
   defp do_join_channel(state) do
-    IO.puts "joining ..."
-    {:ok, sock} = Socket.TCP.connect(state.host, state.port, packet: :line)
-    sock |> Socket.Stream.send!("NICK #{state.nick}\r\n")
-    sock |> Socket.Stream.send!("USER #{state.nick} #{state.host} #{state.nick} #{state.nick}\r\n")
-    sock |> Socket.Stream.send!("JOIN #{state.chan}\r\n")
-    Map.put(state, :sock, sock)
+    state.sock |> Socket.Stream.send!("NICK #{state.nick}\r\n")
+    state.sock |> Socket.Stream.send!("USER #{state.nick} #{state.host} #{state.nick} #{state.nick}\r\n")
+    state.sock |> Socket.Stream.send!("JOIN #{state.chan}\r\n")
+    state
   end
 
   defp do_listen(state) do
@@ -57,7 +60,5 @@ defmodule Exile.Bot do
         :ok
     end
   end
-
-
 
 end
