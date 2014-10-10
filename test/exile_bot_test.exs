@@ -5,7 +5,7 @@ defmodule ExileBotTest do
   @host "irc.freenode.net"
   @port 6667
   @nick "exile-bot"
-  @chan "#exile-bot"
+  @chan "exile-bot"
 
   # NOTE: This is a minimal implementation, without any 3rd party libraries,
   #       to talk to a IRC server. 
@@ -44,10 +44,7 @@ defmodule ExileBotTest do
 
   @tag timeout: 60_000
   test "connecting to an IRC server" do
-    {:ok, pid} = Bot.start_link(@host, @port, @chan)
-    %{host: _host, port: _port, chan: _chan, nick: _nick, sock: _sock} = 
-    Bot.join_channel(pid)
-    Bot.listen(pid)
+    {:ok, _pid} = Exile.log(@host, @port, @chan)
 
     # NOTE: Uncomment to see the Bot in action.
     :timer.sleep 100000
@@ -56,7 +53,7 @@ defmodule ExileBotTest do
   @msg  ":bentanweihao!~bentanwei@27.96.106.134 PRIVMSG #elixir-lang :makes writing look like a walk in the park"
   test "parsing of PRIVMSG" do
     expected = "bentanweihao: makes writing look like a walk in the park"
-    assert Bot.parse_message(@msg) == expected
+    assert Bot.parse_message(@msg, nil) == expected
   end
 
 end
