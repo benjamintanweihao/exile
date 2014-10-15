@@ -22,10 +22,10 @@ defmodule Exile.Mixfile do
   #
   # Type `mix help deps` for examples and options
   defp deps do
-
     [
       {:phoenix, git: "https://github.com/phoenixframework/phoenix", branch: "master"},
       {:cowboy, "~> 1.0"},
+      {:phoenix_haml, "~> 0.0.4"},
       {:socket, "~> 0.2.8"}
     ]
   end

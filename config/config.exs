@@ -20,6 +20,10 @@ config :phoenix, Exile.Router,
   session: [store: :cookie,
             key: "_exile_key"]
 
+# Template configuration
+config :phoenix, :template_engines,
+  haml: PhoenixHaml.Engine
+
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
