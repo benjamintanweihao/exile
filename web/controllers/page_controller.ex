@@ -4,7 +4,7 @@ defmodule Exile.PageController do
   plug :action
 
   def index(conn, _params) do
-    render conn, "index"
+    render conn, "index", channels: ["#elixir-lang"]
   end
 
   def not_found(conn, _params) do

@@ -25,7 +25,7 @@ defmodule Exile.Mixfile do
     [
       {:phoenix, git: "https://github.com/phoenixframework/phoenix", branch: "master"},
       {:cowboy, "~> 1.0"},
-      {:phoenix_haml, "~> 0.0.4"},
+      {:timex, "~> 0.12.9"},
       {:socket, "~> 0.2.8"}
     ]
   end

@@ -1,0 +1,84 @@
+body {
+  background-color: black;
+  font-family: "Menlo", "Monaco", monospace;
+  font-size: 12px;
+  line-height: 16px;
+  color: white;
+  margin: 0;
+  padding: 0; }
+
+section, header, pre {
+  display: block;
+  margin: 0; }
+
+pre {
+  font-family: "Menlo", "Monaco", monospace; }
+
+a {
+  color: white; }
+
+#channels {
+  position: fixed;
+  width: 165px;
+  top: 0;
+  overflow: auto;
+  height: 100%;
+  border-right: 1px solid #444444; }
+  #channels ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 10px;
+    border-top: 1px solid #444444; }
+    #channels ul a {
+      color: #777777;
+      text-decoration: none; }
+    #channels ul li.current a {
+      color: white; }
+  #channels #calendar {
+    color: #555555;
+    padding: 10px; }
+    #channels #calendar a {
+      text-decoration: none;
+      color: #555555; }
+      #channels #calendar a.current {
+        color: white; }
+
+#log {
+  padding: 10px;
+  margin: 0 0 0 166px;
+  color: #444444; }
+  #log div.highlight {
+    color: white; }
+    #log div.highlight span.nickname {
+      color: #fb1263; }
+  #log a[name] {
+    color: #444444;
+    text-decoration: none; }
+    #log a[name]:hover {
+      text-decoration: underline; }
+  #log a {
+    color: #f6f840; }
+
+body:not(.highlight) .msg {
+  color: white; }
+body:not(.highlight) span.nickname {
+  color: #fb1263; }
+
+header {
+  background-color: black;
+  height: 0;
+  line-height: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  border-bottom: 1px solid #444444; }
+  header a {
+    text-decoration: none;
+    color: #555555; }
+  header span {
+    position: absolute;
+    left: 10px;
+    top: 0;
+    font-size: 18px; }
