@@ -9,7 +9,7 @@
   <body>
     <section id="channels">
       <section id="calendar">
-        <%= safe calendar("elixir-lang") %>
+        <%= safe calendar("elixir-lang", @date) %>
       </section>
       <ul>
         <li class="current">

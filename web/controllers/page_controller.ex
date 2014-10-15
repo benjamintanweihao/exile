@@ -1,10 +1,19 @@
 defmodule Exile.PageController do
   use Phoenix.Controller
+  alias Timex.Date,       as: D
+  alias Timex.DateFormat, as: DF
 
   plug :action
 
   def index(conn, _params) do
-    render conn, "index", channels: ["#elixir-lang"]
+    formatted_date = D.local |> DF.format!("%F", :strftime)
+    render conn, "index", channels: ["#elixir-lang"], date: formatted_date
+  end
+
+  def show(conn, params) do
+    channel = params["channel"]
+    date    = params["date"] 
+    render conn, "index", date: date, channel: channel, date: date
   end
 
   def not_found(conn, _params) do

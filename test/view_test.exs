@@ -1,9 +1,9 @@
-defmodule LayoutViewTest do
+defmodule ViewTest do
   use ExUnit.Case
-  alias Exile.LayoutView, as: View
-  alias Timex.Date,       as: D
+  alias Exile.View
+  alias Timex.Date, as: D
 
-  @date {2014, 10, 15} |> D.from
+  @date "2014-10-15"
 
   @calendar_no_links "<a href=\"/elixir-lang/2014-10-14\">&lt;</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Oct 2014&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href=\"/elixir-lang/2014-10-16\">&gt;</a><br/>Su Mo Tu We Th Fr Sa\n          1  2  3  4\n 5  6  7  8  9 10 11\n12 13 14 15 16 17 18\n19 20 21 22 23 24 25\n26 27 28 29 30 31\n\n"
 

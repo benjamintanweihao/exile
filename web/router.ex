@@ -5,7 +5,8 @@ defmodule Exile.Router do
     # Use the default browser stack.
     pipe_through :browser
 
-    get "/", Exile.PageController, :index, as: :pages
+    get "/",               Exile.PageController, :index, as: :pages
+    get "/:channel/:date", Exile.PageController, :show
   end
 
   # Other scopes may use custom stacks.
