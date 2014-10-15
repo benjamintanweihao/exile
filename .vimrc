@@ -1,1 +1,1 @@
-map <leader>t :!mix test<cr>
+map <leader>t :!mix test %<cr>
