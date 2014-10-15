@@ -1,4 +1,4 @@
 defmodule Exile.PageView do
-  use Exile.Views
+  use Exile.View
 
 end

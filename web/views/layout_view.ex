@@ -1,4 +1,4 @@
 defmodule Exile.LayoutView do
-  use Exile.Views
+  use Exile.View
 
 end

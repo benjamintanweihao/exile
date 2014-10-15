@@ -24,7 +24,7 @@ defmodule Exile.Mixfile do
   defp deps do
 
     [
-      {:phoenix, "0.5.0"},
+      {:phoenix, git: "https://github.com/phoenixframework/phoenix", branch: "master"},
       {:cowboy, "~> 1.0"},
       {:socket, "~> 0.2.8"}
     ]
