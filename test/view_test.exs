@@ -16,5 +16,9 @@ defmodule ViewTest do
   test "displays the calendar with links" do
     assert @calendar_links == View.calendar("elixir-lang", @date, true)
   end
+
+  test "displays the channel list" do
+    # displays a channel list pointing to the correct links"
+  end
 end
 
