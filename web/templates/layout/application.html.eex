@@ -9,17 +9,13 @@
   <body>
     <section id="channels">
       <section id="calendar">
-        <%= safe calendar("elixir-lang", @date) %>
+        <%= safe calendar(@channel, @date) %>
       </section>
       <ul>
         <li class="current">
           <a href="/">Console</a>
         </li>
-        <%= Enum.map 1..100, fn _x -> %>
-          <li>
-            <a href="#">#elixir-lang</a>
-          </li>
-        <% end %>
+        <%= safe channels(@channels, @date, @channel) %>
       </ul>
     </section>
     <%= @inner %>

@@ -1,5 +1,7 @@
 defmodule Exile.Bot do
   use GenServer
+  alias Timex.Date,       as: D
+  alias Timex.DateFormat, as: DF
 
   def start_link(state) do
     GenServer.start_link(__MODULE__, state)
@@ -22,8 +24,7 @@ defmodule Exile.Bot do
     "#{parse_sender(who)}: #{message}"
   end
 
-  def parse_message(["PING", server], socket) do
-    pong = "PONG #{server}\r\n"
+  def parse_message(["PING", server], socket) do pong = "PONG #{server}\r\n"
     socket |> Socket.Stream.send!(pong)
     pong
   end
@@ -49,11 +50,15 @@ defmodule Exile.Bot do
     state
   end
 
-  defp do_listen(%{sock: sock} = state) do
+  defp do_listen(%{sock: sock, chan: chan} = state) do
     case state.sock |> Socket.Stream.recv! do
       data when is_binary(data)->
         case parse_message(data, sock) do
-          message -> IO.puts message
+          message -> 
+            IO.puts message
+            date = D.local |> DF.format!("%F", :strftime)
+            IO.puts date
+            File.write!("logs/#{chan}-#{date}", message <> "\n", [:append])
         end
         do_listen(state)
       nil ->

@@ -12,3 +12,7 @@ I am writing this because I'm too damned lazy to log into IRC, have an open wind
 > Exile.log("irc.freenode.net", 6667, "elixir-lang")
 ```
 
+## TODOS
+
+- [] Channels List
+

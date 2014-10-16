@@ -1,4 +1,4 @@
-defmodule ExileBotTest do
+defmodule BotTest do
   use ExUnit.Case
   alias Exile.Bot
 
@@ -34,14 +34,6 @@ defmodule ExileBotTest do
   #   handle_recv(sock)
   # end
 
-  def handle(sock) do
-    case sock |> Socket.Stream.recv! do
-      data ->
-        IO.puts data
-    end
-    handle(sock)
-  end
-
   @tag timeout: 60_000
   test "connecting to an IRC server" do
     {:ok, _pid} = Exile.log(@host, @port, @chan)
@@ -53,7 +45,7 @@ defmodule ExileBotTest do
   @msg  ":bentanweihao!~bentanwei@27.96.106.134 PRIVMSG #elixir-lang :makes writing look like a walk in the park"
   test "parsing of PRIVMSG" do
     expected = "bentanweihao: makes writing look like a walk in the park"
-    assert Bot.parse_message(@msg, nil) == expected
+    assert expected == Bot.parse_message(@msg, nil)
   end
 
 end

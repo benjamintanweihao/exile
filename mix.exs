@@ -10,17 +10,11 @@ defmodule Exile.Mixfile do
      deps: deps]
   end
 
-  # Configuration for the OTP application
-  #
-  # Type `mix help compile.app` for more information
   def application do
     [mod: {Exile, []},
      applications: [:phoenix, :cowboy, :logger]]
   end
 
-  # Specifies your project dependencies
-  #
-  # Type `mix help deps` for examples and options
   defp deps do
     [
       {:phoenix, git: "https://github.com/phoenixframework/phoenix", branch: "master"},

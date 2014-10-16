@@ -1,0 +1,9 @@
+<section id="log">
+  <%= Enum.map @messages, fn message -> %>
+    <div>
+      <%= message %>
+      <br/>
+    </div>
+  <% end %>
+</section>
+

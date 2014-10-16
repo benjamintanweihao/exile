@@ -29,7 +29,7 @@ defmodule Exile.View do
                           ""
                         end
 
-              ~s(<a class="#{current}" href="/#{channel}/#{formatted_date}">#{d}</a>)
+              channel_link(channel, formatted_date, d, current)
             end)
     end
 
@@ -40,13 +40,37 @@ defmodule Exile.View do
                         |> Enum.drop(1)
                         |> Enum.join("\n")
 
-    ~s{<a href="/#{channel}/#{prev_date}">&lt;</a>} <>
-    ~s{#{calendar_header(date)}<a href="/#{channel}/#{next_date}">&gt;</a>} <>
-    ~s{<br/>#{formatted_cal}}
+    channel_link(channel, prev_date, "&lt;") <>
+    calendar_header(date) <>
+    channel_link(channel, next_date, "&gt;") <>
+    "<br/>#{formatted_cal}"
   end
 
   defp calendar_header(date) do
     padding = String.duplicate("&nbsp;", 5)
     padding <> DF.format!(date, "%b %Y", :strftime) <> padding
   end
+
+  defp channel_link(channel, date, content, class \\ "") do
+    channel = channel |> String.replace("#", ".")
+    ~s{<a href="/#{channel}/#{date}" class="#{class}">#{content}</a>}
+  end 
+
+  def channels(nil, _), do: ""
+  def channels([], _),  do: ""
+
+  def channels(channels, date, current_channel \\ "") do
+    Enum.map(channels, fn channel ->
+      current = if current_channel == channel do
+                  "current"
+                else
+                  ""
+                end
+
+      ~s(<li>
+          #{channel_link(channel, date, channel, current)}
+         </li>)
+    end) |> Enum.join
+  end
+
 end
