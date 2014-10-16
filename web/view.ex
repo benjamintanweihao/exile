@@ -61,9 +61,6 @@ defmodule Exile.View do
 
   def channels(channels, date, current_channel \\ "") do
     Enum.map(channels, fn channel ->
-      IO.puts "===="
-      IO.inspect channel
-      IO.inspect current_channel
       current = if current_channel == channel do
                   "current"
                 else
