@@ -18,10 +18,14 @@ defmodule Exile.Bot do
       |> parse_message(socket)
   end
 
-  def parse_message([who, "PRIVMSG", _channel | message], _socket) do
+  def parse_message([who, "PRIVMSG", channel | message], _socket) do
     [":" <> head | tail] = message
     message = Enum.join([head | tail], " ")
-    "#{parse_sender(who)}: #{message}"
+    message = "#{parse_sender(who)}: #{message}"
+    date = D.local |> DF.format!("%F", :strftime)
+    IO.puts date
+    File.write!("logs/#{channel}-#{date}", message <> "\n", [:append])
+    message
   end
 
   def parse_message(["PING", server], socket) do pong = "PONG #{server}\r\n"
@@ -46,19 +50,16 @@ defmodule Exile.Bot do
   defp do_join_channel(%{sock: sock} = state) do
     sock |> Socket.Stream.send!("NICK #{state.nick}\r\n")
     sock |> Socket.Stream.send!("USER #{state.nick} #{state.host} #{state.nick} #{state.nick}\r\n")
-    sock |> Socket.Stream.send!("JOIN ##{state.chan}\r\n")
+    sock |> Socket.Stream.send!("JOIN #{state.chan}\r\n")
     state
   end
 
-  defp do_listen(%{sock: sock, chan: chan} = state) do
+  defp do_listen(%{sock: sock} = state) do
     case state.sock |> Socket.Stream.recv! do
       data when is_binary(data)->
         case parse_message(data, sock) do
           message -> 
             IO.puts message
-            date = D.local |> DF.format!("%F", :strftime)
-            IO.puts date
-            File.write!("logs/#{chan}-#{date}", message <> "\n", [:append])
         end
         do_listen(state)
       nil ->
