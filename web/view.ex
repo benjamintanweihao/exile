@@ -73,4 +73,28 @@ defmodule Exile.View do
     end) |> Enum.join
   end
 
+  def messages(nil), do: ""
+
+  def messages(messages) do
+    messages 
+    |> Enum.map(fn msg ->
+         case String.split(msg, ":", parts: 2) do
+           [user | line] -> 
+             "#{format_nick(user)} #{format_line(line)}" 
+           _ -> ""
+         end
+      end)
+    |> Enum.join("<br/>")
+  end
+
+  defp format_nick(""), do: ""
+
+  defp format_nick(nick) do
+    ~s(<span class="nickname">&lt;#{nick}&gt;</span>)
+  end
+
+  defp format_line(line) do
+    ~s(<span class="msg">#{line}</span>)
+  end
+
 end

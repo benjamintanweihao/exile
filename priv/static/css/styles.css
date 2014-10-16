@@ -59,7 +59,7 @@ a {
   #log a {
     color: #f6f840; }
 
-body:not(.highlight) .msg {
+.msg {
   color: white; }
 body:not(.highlight) span.nickname {
   color: #fb1263; }
