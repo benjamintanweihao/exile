@@ -73,7 +73,10 @@ defmodule Exile.View do
     end) |> Enum.join
   end
 
-  def messages(nil), do: ""
+  def messages(nil) do
+    "Welcome to EXILE – EXILE – An EliXir Irc LoggEr" <>
+    " (Created by Benjamin Tan)"
+  end
 
   def messages(messages) do
     messages 

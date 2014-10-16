@@ -23,7 +23,6 @@ defmodule Exile.Bot do
     message = Enum.join([head | tail], " ")
     message = "#{parse_sender(who)}: #{message}"
     date = D.local |> DF.format!("%F", :strftime)
-    IO.puts date
     File.write!("logs/#{channel}-#{date}", message <> "\n", [:append])
     message
   end
@@ -59,7 +58,7 @@ defmodule Exile.Bot do
       data when is_binary(data)->
         case parse_message(data, sock) do
           message -> 
-            IO.puts message
+            message
         end
         do_listen(state)
       nil ->
